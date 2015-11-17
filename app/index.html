@@ -5,9 +5,60 @@
     <title>Canvas</title>
     <script type="text/javascript">
       function draw(){
-        var canvas = document.getElementById('canvas');
-        if (canvas.getContext){
-          var ctx = canvas.getContext('2d');
+        var canvas1 = document.getElementById('canvasOne');
+        if (canvas1.getContext){
+          var ctx1 = canvas1.getContext('2d');
+
+          // Two Filled Rectangles
+          ctx1.fillStyle = "rgb(200,0,0)";
+          ctx1.fillRect (150, 150, 65, 50);
+
+          ctx1.fillStyle = "rgba(0, 220, 200, 0.5)";
+          ctx1.fillRect (180, 180, 65, 50);
+
+          // Layed Rectangled with fill, clear, and outline
+          ctx1.fillRect(25,25,100,100);
+          ctx1.clearRect(45,45,60,60);
+          ctx1.strokeRect(50,50,50,50);
+
+          // Drawing Paths
+          ctx1.fillStyle = "#00bcd4"
+          ctx1.beginPath();
+          ctx1.moveTo(175,50);
+          ctx1.lineTo(200,75);
+          ctx1.lineTo(200,25);
+          ctx1.fill();
+        }
+
+        var canvas2 = document.getElementById('canvasTwo');
+        if (canvas2.getContext){
+           var ctx = canvas2.getContext('2d');
+
+          // Begin Arc'd path
+          ctx.beginPath();
+          ctx.arc(75,75,50,0,Math.PI*2,true); // Outer circle
+          ctx.moveTo(110,75);
+          ctx.arc(75,75,35,0,Math.PI,false);  // Mouth (clockwise)
+          ctx.moveTo(65,65);
+          ctx.arc(60,65,5,0,Math.PI*2,true);  // Left eye
+          ctx.moveTo(95,65);
+          ctx.arc(90,65,5,0,Math.PI*2,true);  // Right eye
+          ctx.stroke();
+
+          //Filled triangle
+          ctx.beginPath();
+          ctx.moveTo(125,125);
+          ctx.lineTo(205,125);
+          ctx.lineTo(125,205);
+          ctx.fill();
+
+          // Stroked triangle
+          ctx.beginPath();
+          ctx.moveTo(225,225);
+          ctx.lineTo(225,145);
+          ctx.lineTo(145,225);
+          ctx.closePath();
+          ctx.stroke();
         }
       }
     </script>
@@ -16,6 +67,7 @@
     </style>
   </head>
   <body onload="draw();">
-    <canvas id="canvas" width="150" height="150"></canvas>
+    <canvas id="canvasOne" width="250" height="250"></canvas>
+    <canvas id="canvasTwo" width="250" height="250"></canvas>
   </body>
 </html>
