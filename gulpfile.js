@@ -17,7 +17,7 @@ gulp.task('express', function() {
   app.use(require('connect-livereload')({port: 4002}));
     var path = require('path');
     __parentDirArray = __dirname.split(path.sep);
-    __parentDirArray.pop();
+    // __parentDirArray.pop();
     __parentDirArray.push('app');
   app.use(express.static( __parentDirArray.join('/') ));
   app.listen(4000);
@@ -41,20 +41,20 @@ function notifyLiveReload(event) {
 }
 
 gulp.task('sass', function() {
-    return sass('../app/sass', { style: 'expanded' })
-        .pipe(gulp.dest('../app/css'))
+    return sass('app/sass', { style: 'expanded' })
+        .pipe(gulp.dest('app/css'))
         .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1'))
-	    .pipe(gulp.dest('../app/css'))
+	    .pipe(gulp.dest('app/css'))
 	    .pipe(rename({suffix: 'min'}))
 	    .pipe(minifycss())
-	    .pipe(gulp.dest('../app/css'));
+	    .pipe(gulp.dest('app/css'));
 });
 
 gulp.task('watch', function() {
-  gulp.watch('../app/sass/*.scss', ['sass']);
-  gulp.watch('../app/*.html', notifyLiveReload);
-  gulp.watch('../app/css/*.css', notifyLiveReload);
-  gulp.watch('../app/js/*.js', notifyLiveReload);
+  gulp.watch('app/sass/*.scss', ['sass']);
+  gulp.watch('app/*.html', notifyLiveReload);
+  gulp.watch('app/css/*.css', notifyLiveReload);
+  gulp.watch('app/js/*.js', notifyLiveReload);
 });
 
 
