@@ -5,26 +5,35 @@
     <title>Canvas</title>
     <link rel="stylesheet" href="css/styles.css">
     <script type="text/javascript">
-      function drawGrid(canvas, ctx, inc, strokeColor) {
+      function drawGrid(canvas, ctx, inc, strokeColor, txt, txtSize) {
         var canvasWidth = canvas.width;
         var canvasHeight = canvas.height;
         var itrX = Math.ceil(canvas.width/inc);
         var itrY = Math.ceil(canvas.height/inc);
         ctx.strokeStyle = strokeColor || 'rgba(230, 230, 230, 0.5)';
         // Draw Vertical lines
-        for (var i = 1; i < itrX; i++) {
-          ctx.beginPath();
-          ctx.moveTo(inc*i, 0);
-          ctx.lineTo(inc*i, canvasWidth);
-          ctx.stroke();
-        }
-        // Draw horizontal lines
-        for (var j = 1; j < itrY; j++) {
-          ctx.beginPath();
-          ctx.moveTo(0, inc*j);
-          ctx.lineTo(canvasHeight, inc*j);
-          ctx.strokeStyle = 'rgb(200, 200, 200)'
-          ctx.stroke();
+        for (var i = 0; i < itrX; i++) {
+          for (var j = 0; j < itrY; j++) {
+            ctx.beginPath();
+            ctx.moveTo(inc*i, inc*j);
+            ctx.lineTo(inc*i, inc*(j+1));
+            ctx.stroke();
+            ctx.strokeStyle = 'rgb(200, 200, 200)'
+            ctx.closePath();
+
+            ctx.beginPath();
+            ctx.moveTo(inc*i, inc*j);
+            ctx.lineTo(inc*(i+1), inc*j);
+            ctx.stroke();
+            ctx.strokeStyle = 'rgb(200, 200, 200)'
+            ctx.closePath();
+
+            if(txt) {
+              ctx.font = txtSize + "px Times New Roman";
+              ctx.fillStyle = strokeColor || 'rgba(230, 230, 230, 0.5)';
+              ctx.fillText("(" + (inc*i) + ", " + (inc*j) + ")", (inc*i)+3, (inc*j)-3);
+            }
+          }
         }
       }
 
@@ -152,8 +161,8 @@
           ctx3.quadraticCurveTo(125,25,75,25);
           ctx3.stroke();
 
-          drawGrid(canvas3, ctx3, 25);
-          drawGrid(canvas3, ctx3, 50, 'rgb(150, 150, 150)');
+          // drawGrid(canvas3, ctx3, 25);
+          drawGrid(canvas3, ctx3, 50, 'rgb(150, 150, 150)', false, 12);
           drawPoint(ctx3, 25, 25, 3);
 
         }
@@ -267,6 +276,64 @@
         }
 
         var canvas6 = document.getElementById('canvasSix');
+        if (canvas6.getContext) {
+          cxt6 = canvas6.getContext('2d');
+          var radgrad = cxt6.createRadialGradient(45,45,10,52,50,30);
+          radgrad.addColorStop(0, '#A7D30C');
+          radgrad.addColorStop(0.9, '#019F62');
+          radgrad.addColorStop(1, 'rgba(1,159,98,0)');
+
+          var radgrad2 = cxt6.createRadialGradient(105,105,20,112,120,50);
+          radgrad2.addColorStop(0, '#FF5F98');
+          radgrad2.addColorStop(0.75, '#FF0188');
+          radgrad2.addColorStop(1, 'rgba(255,1,136,0)');
+
+          var radgrad3 = cxt6.createRadialGradient(95,15,15,102,20,40);
+          radgrad3.addColorStop(0, '#00C9FF');
+          radgrad3.addColorStop(0.8, '#00B5E2');
+          radgrad3.addColorStop(1, 'rgba(0,201,255,0)');
+
+          var radgrad4 = cxt6.createRadialGradient(0,150,50,0,140,90);
+          radgrad4.addColorStop(0, '#F4F201');
+          radgrad4.addColorStop(0.8, '#E4C700');
+          radgrad4.addColorStop(1, 'rgba(228,199,0,0)');
+
+          var radgrad5 = cxt6.createRadialGradient(175, 50, 10, 180, 100, 70);
+          radgrad5.addColorStop(0, 'rgba(156, 29, 176, 0.5)')
+          radgrad5.addColorStop(.8, 'rgba(156, 29, 176, 0.8)')
+          radgrad5.addColorStop(.9, 'rgba(156, 29, 176, 1)');
+          radgrad5.addColorStop(1, 'rgba(156, 29, 176, 0)');
+
+          // draw shapes
+          cxt6.fillStyle = radgrad4;
+          cxt6.fillRect(0,0,250,250);
+          cxt6.fillStyle = radgrad3;
+          cxt6.fillRect(0,0,250,250);
+          cxt6.fillStyle = radgrad2;
+          cxt6.fillRect(0,0,250,250);
+          cxt6.fillStyle = radgrad;
+          cxt6.fillRect(0,0,250,250);
+
+          // Custom radgrad
+          cxt6.fillStyle = radgrad5;
+          cxt6.fillRect(150, 25, 100, 100)
+          cxt6.strokeRect(150, 25, 100, 100)
+
+          cxt6.strokeStyle = '#00bcd4';
+          cxt6.beginPath();
+          cxt6.arc(200, 50, 25, 0, Math.PI*2);
+          cxt6.stroke();
+          cxt6.closePath();
+        }
+
+        var canvas7 = document.getElementById('canvasSeven');
+        if(canvas7.getContext) {
+          var cxt7 = canvas7.getContext('2d');
+          // Draw Slice
+          cxt7.drawImage(document.getElementById('source'), 33, 71, 104, 124, 21, 20, 87, 104);
+          // Draw Frame
+          cxt7.drawImage(document.getElementById('frame'), 0, 0)
+        }
       }
     </script>
     <style type="text/css">
@@ -280,5 +347,8 @@
     <canvas id="canvasFour", width="250" height="250"></canvas>
     <canvas id="canvasFive", width="250" height="250"></canvas>
     <canvas id="canvasSix", width="250" height="250"></canvas>
+    <canvas id="canvasSeven" width="250" height="250"></canvas>
+    <img id="source" src="https://mdn.mozillademos.org/files/5397/rhino.jpg">
+    <img id="frame" src="https://mdn.mozillademos.org/files/242/Canvas_picture_frame.png">
   </body>
 </html>
