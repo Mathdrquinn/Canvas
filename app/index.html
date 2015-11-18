@@ -333,6 +333,32 @@
           cxt7.drawImage(document.getElementById('source'), 33, 71, 104, 124, 21, 20, 87, 104);
           // Draw Frame
           cxt7.drawImage(document.getElementById('frame'), 0, 0)
+
+          // Rotation, translation, and state saving
+          cxt7.save();
+          // blue rect
+          cxt7.fillStyle = "#0095DD";
+          cxt7.fillRect(30,30, 100, 100);
+          cxt7.rotate((Math.PI/180)*25);
+          // grey rect
+          cxt7.fillStyle = "#4D4E53";
+          cxt7.fillRect(30,30, 100, 100);
+          cxt7.restore();
+
+          // right rectangles, rotate from rectangle center
+          // draw blue rect
+          cxt7.fillStyle = "#0095DD";
+          cxt7.fillRect(150, 30, 100, 100);
+
+          cxt7.translate(200, 80); // translate to rectangle center
+                                  // x = x + 0.5 * width
+                                  // y = y + 0.5 * height
+          cxt7.rotate((Math.PI/180)*25); // rotate
+          cxt7.translate(-200, -80); // translate back
+
+          // draw grey rect
+          cxt7.fillStyle = "#4D4E53";
+          cxt7.fillRect(150, 30, 100, 100);
         }
       }
     </script>
