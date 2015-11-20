@@ -360,6 +360,55 @@
           cxt7.fillStyle = "#4D4E53";
           cxt7.fillRect(150, 30, 100, 100);
         }
+
+        function drawStar(ctx,r){
+          ctx.save();
+          ctx.beginPath();
+          ctx.moveTo(r,0);
+          for (var i=0;i<9;i++){
+            ctx.rotate(Math.PI/5);
+            if(i%2 === 0) {
+              ctx.lineTo((r/0.525731)*0.200811,0);
+            } else {
+              ctx.lineTo(r,0);
+            }
+          }
+          ctx.closePath();
+          ctx.fill();
+          ctx.restore();
+        }
+
+        var canvas8 = document.getElementById('canvasEight');
+        if(canvas8.getContext) {
+          var cxt8 = canvas8.getContext('2d');
+
+          cxt8.save();
+          cxt8.fillRect(0,0,150,150);
+          cxt8.translate(75,75);
+
+          // Create a circular clipping path
+          cxt8.beginPath();
+          cxt8.arc(0, 0, 60, 0, Math.PI*2, true);
+          cxt8.clip();
+
+          // draw background
+          var lingrad = cxt8.createLinearGradient(0, -75, 0, 75);
+          lingrad.addColorStop(0, '#232256');
+          lingrad.addColorStop(1, 'darkred');
+
+          cxt8.fillStyle = lingrad;
+          cxt8.fillRect(-75,-75,150,150);
+
+          // draw stars
+          for (var j=1;j<50;j++){
+            cxt8.save();
+            cxt8.fillStyle = '#fff';
+            cxt8.translate(75-Math.floor(Math.random()*150),
+                          75-Math.floor(Math.random()*150));
+            drawStar(cxt8,Math.floor(Math.random()*4)+2);
+            cxt8.restore();
+          }
+        }
       }
     </script>
     <style type="text/css">
@@ -374,7 +423,22 @@
     <canvas id="canvasFive", width="250" height="250"></canvas>
     <canvas id="canvasSix", width="250" height="250"></canvas>
     <canvas id="canvasSeven" width="250" height="250"></canvas>
+    <canvas id="canvasEight" width="250" height="250"></canvas>
     <img id="source" src="https://mdn.mozillademos.org/files/5397/rhino.jpg">
     <img id="frame" src="https://mdn.mozillademos.org/files/242/Canvas_picture_frame.png">
   </body>
 </html>
+<!--
+
+
+
+
+
+
+
+
+
+
+
+
+Unnecessary -->
