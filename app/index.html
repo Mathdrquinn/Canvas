@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="css/styles.css">
     <script type="text/javascript">
       function drawGrid(canvas, ctx, inc, strokeColor, txt, txtSize) {
+        ctx.save();
         var canvasWidth = canvas.width;
         var canvasHeight = canvas.height;
         var itrX = Math.ceil(canvas.width/inc);
@@ -35,11 +36,14 @@
             }
           }
         }
+        ctx.restore();
       }
 
       function drawPoint(ctx, x, y, size, color) {
+        ctx.save();
         ctx.fillStyle = color || "rgb(250,20,20)";
         ctx.fillRect (x-(size/2), y-(size/2), size, size);
+        ctx.restore();
       }
 
       function roundedRect(ctx,x,y,width,height,radius){
@@ -409,6 +413,144 @@
             cxt8.restore();
           }
         }
+
+        var canvas9 = document.getElementById('canvasNine');
+        if(canvas9.getContext) {
+          var cxt9 = canvas9.getContext('2d');
+          var sun = new Image();
+          var moon = new Image();
+          var earth = new Image();
+          var day = 28800000;
+          var hour = 3600000;
+
+          function init(){
+            sun.src = 'https://mdn.mozillademos.org/files/1456/Canvas_sun.png';
+            moon.src = 'https://mdn.mozillademos.org/files/1443/Canvas_moon.png';
+            earth.src = 'https://mdn.mozillademos.org/files/1429/Canvas_earth.png';
+            window.requestAnimationFrame(solarSystem);
+          }
+
+          // cxt9.fillRect(0, 0, 50, 50);
+
+          function solarSystem() {
+            // Prepare Rectagle and settings for default
+            cxt9.globalCompositeOperation = 'destination-over';
+            cxt9.clearRect(0, 0, 300, 300);
+
+
+            cxt9.fillStyle = 'rgba(0, 0, 0, 0.4)';
+            cxt9.strokeStyle = 'rgba(0, 153, 255, 0.4)';
+            cxt9.save();
+
+            // Move to center of canvas
+            cxt9.translate(150, 150);
+
+            // Earth
+            var time = new Date();
+            var dayPartial = time.getTime() % day;
+            var hourPartial = time.getTime() % hour;
+            cxt9.rotate( (2*Math.PI) * (dayPartial/day) );
+            cxt9.translate(105, 0);
+            cxt9.fillRect(0, -12, 50, 24); //Shadow
+            cxt9.drawImage(earth, -12, -12);
+            // Save Earth State
+            cxt9.save();
+
+            // Moon
+            cxt9.rotate( ((2*Math.PI) * (hourPartial/hour)) + Math.PI*1.0 )
+            cxt9.translate(0, 28.5);
+            cxt9.drawImage(moon, -3.5, -3.5);
+
+            // Return to Earth State
+            cxt9.restore()
+            // Return to Center of Canvas State
+            cxt9.restore();
+
+            // Set Orbit path
+            cxt9.beginPath();
+            cxt9.arc(150, 150, 105, 0, Math.PI*2, true);
+            cxt9.stroke();
+
+            cxt9.drawImage(sun, 0, 0, 300, 300);
+
+            window.requestAnimationFrame(solarSystem);
+            // cxt9.fillRect(0, 0, 50, 50);
+          }
+
+          init();
+        }
+
+        var canvasIcon = document.getElementById('repocon');
+        if(canvasIcon.getContext) {
+          var repoContext = canvasIcon.getContext('2d');
+          var centerX = canvasIcon.width/2;
+          var centerY = canvasIcon.height/2;
+          drawGrid(canvasIcon, repoContext, 50, 'rgb(150, 150, 150)', false, 12);
+          drawPoint(repoContext, centerX, centerY, 3);
+
+          // Move to center of canvas
+          repoContext.translate(centerX, centerY);
+
+          // Draw head
+          // Shell
+          repoContext.beginPath();
+          repoContext.moveTo(0,0);
+          repoContext.quadraticCurveTo(-183.3, 0, -200, -150);
+          repoContext.quadraticCurveTo(-210, -300, 0, -300);
+          repoContext.quadraticCurveTo(210, -300, 200, -150);
+          repoContext.quadraticCurveTo(183.3, 0,0,0);
+          repoContext.fill();
+          // Left Ear
+          repoContext.moveTo(-165, -255);
+          repoContext.quadraticCurveTo(-180, -290, -160, -325);
+          repoContext.quadraticCurveTo(-140, -330, -91, -291);
+          repoContext.fill();
+          // Right Ear
+          repoContext.moveTo(165, -255);
+          repoContext.quadraticCurveTo(180, -290, 160, -325);
+          repoContext.quadraticCurveTo(140, -330, 91, -291);
+          repoContext.fill();
+          // Face Shell
+          repoContext.save();
+          repoContext.fillStyle = '#fffffe';
+          repoContext.strokeStyle = '#fffffe';
+          repoContext.beginPath();
+          repoContext.moveTo(0,-25);
+          repoContext.quadraticCurveTo(-130, -20, -150, -100);
+          repoContext.quadraticCurveTo(-160, -150, -125, -175);
+          repoContext.quadraticCurveTo(-112, -185, -50, -175);
+          repoContext.quadraticCurveTo(-25, -173, 0, -173);
+          repoContext.quadraticCurveTo(25, -173, 50, -175);
+          repoContext.quadraticCurveTo(112, -185, 125, -175);
+          repoContext.quadraticCurveTo(160, -150, 150, -100);
+          repoContext.quadraticCurveTo(130, -20, 0, -25);
+          repoContext.fill();
+          repoContext.restore();
+          // Left Eye
+          repoContext.beginPath();
+          repoContext.moveTo(-50, -110);
+          repoContext.quadraticCurveTo(-50, -140, -65, -140);
+          repoContext.quadraticCurveTo(-80, -140, -80, -110);
+          repoContext.quadraticCurveTo(-80, -80, -65, -80);
+          repoContext.quadraticCurveTo(-50, -80, -50, -110);
+          repoContext.fill();
+          // right Eye
+          repoContext.beginPath();
+          repoContext.moveTo(50, -110);
+          repoContext.quadraticCurveTo(50, -140, 65, -140);
+          repoContext.quadraticCurveTo(80, -140, 80, -110);
+          repoContext.quadraticCurveTo(80, -80, 65, -80);
+          repoContext.quadraticCurveTo(50, -80, 50, -110);
+          repoContext.fill();
+          // repoContext.quadraticCurveTo(125,100,125,62.5);
+          // repoContext.quadraticCurveTo(125,25,75,25);
+          repoContext.stroke();
+
+
+
+          // repoContext.fillRect(0,0,150,150);
+
+        }
       }
     </script>
     <style type="text/css">
@@ -424,6 +566,8 @@
     <canvas id="canvasSix", width="250" height="250"></canvas>
     <canvas id="canvasSeven" width="250" height="250"></canvas>
     <canvas id="canvasEight" width="250" height="250"></canvas>
+    <canvas id="canvasNine" width="250" height="250"></canvas>
+    <canvas id="repocon" width="800" height="800"></canvas>
     <img id="source" src="https://mdn.mozillademos.org/files/5397/rhino.jpg">
     <img id="frame" src="https://mdn.mozillademos.org/files/242/Canvas_picture_frame.png">
   </body>
