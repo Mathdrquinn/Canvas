@@ -534,7 +534,7 @@
           repoContext.quadraticCurveTo(-80, -80, -65, -80);
           repoContext.quadraticCurveTo(-50, -80, -50, -110);
           repoContext.fill();
-          // right Eye
+          // Right Eye
           repoContext.beginPath();
           repoContext.moveTo(50, -110);
           repoContext.quadraticCurveTo(50, -140, 65, -140);
@@ -542,8 +542,25 @@
           repoContext.quadraticCurveTo(80, -80, 65, -80);
           repoContext.quadraticCurveTo(50, -80, 50, -110);
           repoContext.fill();
-          // repoContext.quadraticCurveTo(125,100,125,62.5);
-          // repoContext.quadraticCurveTo(125,25,75,25);
+          // Left Whiskers
+          // Bottom
+          drawPoint(repoContext, -165, -70, 3);
+          repoContext.save();
+          repoContext.translate(-165, -70);
+          repoContext.lineWidth = 5;
+          repoContext.moveTo(0, 0);
+          repoContext.quadraticCurveTo(-100, -5, -185, 15);
+          // repoContext.stroke();
+          // Top
+          repoContext.moveTo(-15, -20);
+          drawPoint(repoContext, -15, -25, 3);
+          repoContext.quadraticCurveTo(-100, -25, -185, -15);
+
+
+          // Body
+          // repoContext.beginPath();
+          // repoContext.moveTo(0, -15);
+          // repoContext.arc(0, 85, 100, Math.PI*1.5, 0)
           repoContext.stroke();
 
 
