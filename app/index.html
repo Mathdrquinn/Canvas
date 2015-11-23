@@ -480,94 +480,194 @@
           init();
         }
 
-        var canvasIcon = document.getElementById('repocon');
-        if(canvasIcon.getContext) {
-          var repoContext = canvasIcon.getContext('2d');
-          var centerX = canvasIcon.width/2;
-          var centerY = canvasIcon.height/2;
-          drawGrid(canvasIcon, repoContext, 50, 'rgb(150, 150, 150)', false, 12);
-          drawPoint(repoContext, centerX, centerY, 3);
-
-          // Move to center of canvas
-          repoContext.translate(centerX, centerY);
-
-          // Draw head
-          // Shell
-          repoContext.beginPath();
-          repoContext.moveTo(0,0);
-          repoContext.quadraticCurveTo(-183.3, 0, -200, -150);
-          repoContext.quadraticCurveTo(-210, -300, 0, -300);
-          repoContext.quadraticCurveTo(210, -300, 200, -150);
-          repoContext.quadraticCurveTo(183.3, 0,0,0);
-          repoContext.fill();
-          // Left Ear
-          repoContext.moveTo(-165, -255);
-          repoContext.quadraticCurveTo(-180, -290, -160, -325);
-          repoContext.quadraticCurveTo(-140, -330, -91, -291);
-          repoContext.fill();
-          // Right Ear
-          repoContext.moveTo(165, -255);
-          repoContext.quadraticCurveTo(180, -290, 160, -325);
-          repoContext.quadraticCurveTo(140, -330, 91, -291);
-          repoContext.fill();
-          // Face Shell
-          repoContext.save();
-          repoContext.fillStyle = '#fffffe';
-          repoContext.strokeStyle = '#fffffe';
-          repoContext.beginPath();
-          repoContext.moveTo(0,-25);
-          repoContext.quadraticCurveTo(-130, -20, -150, -100);
-          repoContext.quadraticCurveTo(-160, -150, -125, -175);
-          repoContext.quadraticCurveTo(-112, -185, -50, -175);
-          repoContext.quadraticCurveTo(-25, -173, 0, -173);
-          repoContext.quadraticCurveTo(25, -173, 50, -175);
-          repoContext.quadraticCurveTo(112, -185, 125, -175);
-          repoContext.quadraticCurveTo(160, -150, 150, -100);
-          repoContext.quadraticCurveTo(130, -20, 0, -25);
-          repoContext.fill();
-          repoContext.restore();
-          // Left Eye
-          repoContext.beginPath();
-          repoContext.moveTo(-50, -110);
-          repoContext.quadraticCurveTo(-50, -140, -65, -140);
-          repoContext.quadraticCurveTo(-80, -140, -80, -110);
-          repoContext.quadraticCurveTo(-80, -80, -65, -80);
-          repoContext.quadraticCurveTo(-50, -80, -50, -110);
-          repoContext.fill();
-          // Right Eye
-          repoContext.beginPath();
-          repoContext.moveTo(50, -110);
-          repoContext.quadraticCurveTo(50, -140, 65, -140);
-          repoContext.quadraticCurveTo(80, -140, 80, -110);
-          repoContext.quadraticCurveTo(80, -80, 65, -80);
-          repoContext.quadraticCurveTo(50, -80, 50, -110);
-          repoContext.fill();
-          // Left Whiskers
-          // Bottom
-          drawPoint(repoContext, -165, -70, 3);
-          repoContext.save();
-          repoContext.translate(-165, -70);
-          repoContext.lineWidth = 5;
-          repoContext.moveTo(0, 0);
-          repoContext.quadraticCurveTo(-100, -5, -185, 15);
-          // repoContext.stroke();
-          // Top
-          repoContext.moveTo(-15, -20);
-          drawPoint(repoContext, -15, -25, 3);
-          repoContext.quadraticCurveTo(-100, -25, -185, -15);
-
-
-          // Body
-          // repoContext.beginPath();
-          // repoContext.moveTo(0, -15);
-          // repoContext.arc(0, 85, 100, Math.PI*1.5, 0)
-          repoContext.stroke();
-
-
-
-          // repoContext.fillRect(0,0,150,150);
-
+        function repoconInit() {
+          window.requestAnimationFrame(drawRepocon);
         }
+        function drawRepocon() {
+          var canvasIcon = document.getElementById('repocon');
+          if(canvasIcon.getContext) {
+            var repoContext = canvasIcon.getContext('2d');
+            // drawGrid(canvasIcon, repoContext, 50, 'rgb(150, 150, 150)', false, 12);
+            var centerX = canvasIcon.width/2;
+            var centerY = canvasIcon.height/2;
+            repoContext.clearRect(0, 0, canvasIcon.width, canvasIcon.height); // clear canvas
+            // Set Body color
+            repoContext.fillStyle = 'blue';
+            repoContext.strokeStyle = 'blue';
+
+            // Wrapping Save
+            repoContext.save();
+            // Move to center of canvas
+            repoContext.translate(centerX, centerY);
+            // Set Rules
+            repoContext.globalCompositeOperation = 'source-over';
+            // repoContext.scale(0.5, 0.5);
+
+            // Body
+            repoContext.save();
+            repoContext.translate(0, -24);
+            repoContext.beginPath();
+            repoContext.moveTo(0, 0);
+            repoContext.arc(0, 100, 100, Math.PI*1.5, 0)
+            repoContext.quadraticCurveTo(100, 160, 97, 225);
+            repoContext.quadraticCurveTo(95, 240, 125, 255);
+            repoContext.quadraticCurveTo(140, 263, 125, 270);
+            repoContext.bezierCurveTo(75, 275, 63, 245, 63, 225);
+            repoContext.lineTo(63, 115);
+            repoContext.quadraticCurveTo(63, 75, 46, 75);
+            repoContext.lineTo(46, 225);
+            repoContext.quadraticCurveTo(48, 270, 63, 288);
+            repoContext.bezierCurveTo(75, 300, 65, 310, 40, 295);
+            repoContext.bezierCurveTo(15, 280, 8, 240, 8, 215);
+            repoContext.lineTo(8, 72);
+            repoContext.quadraticCurveTo(0, 70, -8, 72);
+            repoContext.lineTo(-8, 215);
+            repoContext.bezierCurveTo(-8, 240, -15, 280, -40, 295);
+            repoContext.bezierCurveTo(-65, 310, -75, 300, -63, 288);
+            repoContext.quadraticCurveTo(-48, 270, -46, 225);
+            repoContext.lineTo(-46, 75);
+            repoContext.quadraticCurveTo(-63, 75, -63, 115);
+            repoContext.lineTo(-63, 225);
+            repoContext.bezierCurveTo(-63, 245, -75, 275, -125, 270)
+            repoContext.quadraticCurveTo(-140, 263, -125, 255);
+            repoContext.quadraticCurveTo(-95, 240, -97, 225);
+            repoContext.quadraticCurveTo(-100, 160, -100, 100);
+            repoContext.arc(0, 100, 100, Math.PI, Math.PI*1.5);
+            repoContext.fill();
+            repoContext.restore();
+
+            // Extra Arm
+            repoContext.save();
+            repoContext.translate(-98, 60);
+            repoContext.moveTo(0, 0);
+            repoContext.bezierCurveTo(-65, 25, -75, -15, -83, -25);
+            repoContext.bezierCurveTo(-88, -32, -100, -60, -125, -60);
+            repoContext.bezierCurveTo(-160, -57, -160, -50, -138, -41);
+            repoContext.bezierCurveTo(-110, -35, -110, -10, -90, 15);
+            repoContext.bezierCurveTo(-65, 55, -40, 55, -1, 47);
+            repoContext.fill();
+            repoContext.restore();
+
+            // Head Shadow
+            repoContext.save();
+            repoContext.globalCompositeOperation= 'source-atop';
+            repoContext.translate(0, -85);
+            var radgrad = repoContext.createRadialGradient(0, 0, 95, 0, -100, 200);
+            radgrad.addColorStop(0, 'rgba(40, 40, 40, 0.4)');
+            radgrad.addColorStop(0.9, 'rgba(40, 40, 40, 0.2)');
+            radgrad.addColorStop(0.905, 'rgba(40, 40, 40, 0.9)');
+            radgrad.addColorStop(0.91, 'rgba(40, 40, 40, 0.0)');
+            repoContext.fillStyle = radgrad;
+            repoContext.fillRect(-140, -140, 280, 280);
+            repoContext.restore();
+
+            // Head
+            // Shell
+            repoContext.beginPath();
+            repoContext.moveTo(0,0);
+            repoContext.quadraticCurveTo(-183.3, 0, -200, -150);
+            repoContext.quadraticCurveTo(-210, -300, 0, -300);
+            repoContext.quadraticCurveTo(210, -300, 200, -150);
+            repoContext.quadraticCurveTo(183.3, 0,0,0);
+            repoContext.fill();
+            // Left Ear
+            repoContext.moveTo(-165, -255);
+            repoContext.quadraticCurveTo(-180, -290, -160, -325);
+            repoContext.quadraticCurveTo(-140, -330, -91, -291);
+            repoContext.fill();
+            // Right Ear
+            repoContext.moveTo(165, -255);
+            repoContext.quadraticCurveTo(180, -290, 160, -325);
+            repoContext.quadraticCurveTo(140, -330, 91, -291);
+            repoContext.fill();
+            // Face Shell
+            repoContext.save();
+            repoContext.fillStyle = '#fffffe';
+            repoContext.strokeStyle = '#fffffe';
+            repoContext.beginPath();
+            repoContext.moveTo(0,-25);
+            repoContext.quadraticCurveTo(-130, -20, -150, -100);
+            repoContext.quadraticCurveTo(-160, -150, -125, -175);
+            repoContext.quadraticCurveTo(-112, -185, -50, -175);
+            repoContext.quadraticCurveTo(-25, -173, 0, -173);
+            repoContext.quadraticCurveTo(25, -173, 50, -175);
+            repoContext.quadraticCurveTo(112, -185, 125, -175);
+            repoContext.quadraticCurveTo(160, -150, 150, -100);
+            repoContext.quadraticCurveTo(130, -20, 0, -25);
+            repoContext.fill();
+            repoContext.restore();
+            // Left Eye
+            repoContext.save();
+            repoContext.translate(-65, -110);
+            repoContext.beginPath();
+            repoContext.moveTo(0, 0);
+            repoContext.quadraticCurveTo(0, -30, -15, -30);
+            repoContext.quadraticCurveTo(-30, -30, -30, -0);
+            repoContext.quadraticCurveTo(-30, 30, -15, 30);
+            repoContext.quadraticCurveTo(0, 30, 0, 0);
+            repoContext.fill();
+            repoContext.restore();
+            // Right Eye
+            repoContext.save();
+            repoContext.translate(65, -110);
+            repoContext.beginPath();
+            repoContext.moveTo(0, 0);
+            repoContext.quadraticCurveTo(0, -30, 15, -30);
+            repoContext.quadraticCurveTo(30, -30, 30, 0);
+            repoContext.quadraticCurveTo(30, 30, 15, 30);
+            repoContext.quadraticCurveTo(0, 30, 0, 0);
+            repoContext.fill();
+            repoContext.restore();
+            // Left Whiskers
+            // Bottom
+            repoContext.save();
+            repoContext.translate(-165, -70);
+            repoContext.lineWidth = 5;
+            repoContext.beginPath();
+            repoContext.moveTo(0, 0);
+            repoContext.quadraticCurveTo(-100, -5, -185, 15);
+            // repoContext.stroke();
+            // Top
+            repoContext.moveTo(-15, -20);
+            repoContext.quadraticCurveTo(-100, -25, -185, -15);
+            repoContext.stroke();
+            repoContext.restore();
+            // Right Whiskers
+            // Bottom
+            repoContext.save();
+            repoContext.translate(165, -70);
+            repoContext.lineWidth = 5;
+            repoContext.beginPath();
+            repoContext.moveTo(0, 0);
+            repoContext.quadraticCurveTo(100, -5, 185, 15);
+            // Top
+            repoContext.moveTo(15, -20);
+            repoContext.quadraticCurveTo(100, -25, 185, -15);
+            repoContext.stroke();
+            repoContext.restore();
+
+            // Shadow
+            repoContext.save();
+            repoContext.globalCompositeOperation = 'destination-over';
+            repoContext.translate(0, 250);
+            repoContext.scale(1.2, 0.3);
+            var shadow = repoContext.createRadialGradient(0, 0, 20, 0, 0, 130);
+            shadow.addColorStop(0, 'rgba(40, 40, 40, 0.7)');
+            shadow.addColorStop(0.6, 'rgba(40, 40, 40, 0.4)');
+            shadow.addColorStop(1, 'rgba(40, 40, 40, 0)');
+            repoContext.fillStyle = shadow;
+            repoContext.fillRect(-140, -140, 280, 280);
+            repoContext.restore();
+
+            // Wrapping restore
+            repoContext.restore();
+
+            // Recall Animation
+            window.requestAnimationFrame(drawRepocon);
+
+          }
+        }
+        repoconInit();
       }
     </script>
     <style type="text/css">
